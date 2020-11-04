@@ -1,0 +1,79 @@
+﻿<Window x:Class="PortSimulation.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PortSimulation"
+        mc:Ignorable="d"
+        Title="SlutUppgift" Height="600" Width="1000" MinHeight="600" MinWidth="1000" ResizeMode="CanResize" WindowStartupLocation="CenterScreen" >
+    <Grid ShowGridLines="False">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="8*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" Background="#FF2C2C49" />
+        <Border Grid.Row="1" Background="#FF222238" />
+        <Border Grid.Row="3" Background="#FF2C2C49" />
+        <Grid Grid.Row="1" ShowGridLines="False"> <!-- DAY / DOCKS -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="12*" />
+            </Grid.ColumnDefinitions>
+            <Label x:Name="dayWin" Content="DAY: " Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Courier New" FontWeight="Bold" FontSize="14" Foreground="White" />
+            <Label x:Name="dockListWin" Content="DOCKS: " Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Courier New" FontWeight="Bold" FontSize="14" Foreground="Yellow" FontStretch="Normal" />
+        </Grid>
+        <Grid Grid.Row="2" ShowGridLines="False"> <!-- Boats at the docks / Incoming boats -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="7*" />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="24" />
+                    <RowDefinition Height="9*" />
+                    <RowDefinition Height="24" />
+                    <RowDefinition Height="10*" />
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0" Background="#FF3C4046" />
+                <Border Grid.Row="1" Background="#FF3C4046"/>
+                <Border Grid.Row="2" Background="#FF3C4046" />
+                <Border Grid.Row="3" Background="#FF3C4046"/>
+                <Label Content="Boats North" Grid.Row="0" FontFamily="Courier New" FontWeight="Bold" Foreground="#FF2BFF00" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Label Content="Boats South" Grid.Row="2" FontFamily="Courier New" FontWeight="Bold" Foreground="#FF2BFF00" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <ListView x:Name="listNorthWin" Grid.Row="1" Margin="5,5,5,5" FontFamily="Courier New" Foreground="#FF2BFF00" BorderThickness="0,0,0,0" Background="Transparent" FontWeight="Bold" />
+                <ListView x:Name="listSouthWin" Grid.Row="3" Margin="5,5,5,5" FontFamily="Courier New" Foreground="#FF2BFF00" BorderThickness="0,0,0,0" Background="Transparent" FontWeight="Bold" />
+            </Grid>
+            <Grid Grid.Column="1" ShowGridLines="False">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="24" />
+                    <RowDefinition Height="9*" />
+                    <RowDefinition Height="24" />
+                    <RowDefinition Height="10*" />
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0" Background="#FF2E3745" />
+                <Border Grid.Row="1" Background="#FF2E3745" />
+                <Border Grid.Row="2" Background="#FF536176" />
+                <Border Grid.Row="3" Background="#FF536176" />
+                <Label Content="Incoming boats" Grid.Row="0" FontFamily="Courier New" FontWeight="Bold" Foreground="#FFFF8139" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Label Content="Resume" Grid.Row="2" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF03FFDF" />
+                <ListView x:Name="incomingWin" Grid.Row="1" Margin="5,5,5,5" FontFamily="Courier New" BorderThickness="0,0,0,0" Foreground="#FFFF8139" Background="Transparent" FontWeight="Bold" />
+                <ListView x:Name="resumeWin" Grid.Row="3" Margin="5,5,5,5" FontFamily="Courier New" BorderThickness="0,0,0,0" Foreground="#FF03FFDF" Background="Transparent" FontWeight="Bold" />
+            </Grid>
+        </Grid>
+        
+        <Grid Grid.Row="3" ShowGridLines="False">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Button x:Name="saveButton" Content="Save" Grid.Column="0" Margin="5,5,5,5" Click="ClickSave" FontFamily="Courier New" FontSize="14" FontWeight="Bold" />
+            <Button x:Name="nextButton" Content="Next Day" Grid.Column="3" Margin="5,5,5,5" Click="ClickNext" FontFamily="Courier New" FontSize="14" FontWeight="Bold" />
+            <Button x:Name="clearButton" Content="Clear Port" Grid.Column="1" Margin="5,5,5,5" FontFamily="Courier New" FontSize="14" FontWeight="Bold" Click="ClickClear" />
+        </Grid>
+        <Label x:Name="title" Content="Port Administration :: WPF version :: by Julio Gutierrez" Grid.Row="0" FontSize="16" FontFamily="Arial" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Foreground="White" />
+    </Grid>
+</Window>
