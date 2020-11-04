@@ -24,7 +24,7 @@ namespace PortSimulation
 
             InitializeComponent();
 
-            // Check for a "state.sav" file.
+            // Check for a "status.sav" file.
             // If not found, we initialize everything at zero.
             if (!LoadStatusFromFile("status.sav"))
             {
@@ -32,6 +32,9 @@ namespace PortSimulation
             }
         }
 
+        /*
+         * ClearPort() basically sets everything to Zero.
+         */
         private void ClearPort()
         {
             Day = 0;
@@ -46,14 +49,23 @@ namespace PortSimulation
 
         private void DockListPrint()
         {
+            // docksN and docksS are 2 strings that represent the state of every dock in the port.
+            // This will be printed as a series of characters (one for every dock) next to the
+            // Day information in the upper part of the main window.
             string docksN = "";
             string docksS = "";
 
-            // For better visibility I added a space in between each character.
+            // For better visibility I will add a space between each character.
+            // This: A A K K A D A M A ...
+            // Reads better than:
+            // This: AAKKADAMA...
+            //
             // Remember that the docks are represented by char[] arrays.
+            // "port.docksNorth" and "port.docksSouth" have the same length, that's
+            // why I use one of them in the for loop as the limit.
             for (int i = 0; i < port.docksNorth.Length; i++)
             {
-                docksN += port.docksNorth[i] + " ";
+                docksN += port.docksNorth[i] + " "; // Just add a space between the Characters
                 docksS += port.docksSouth[i] + " ";
             }
 
@@ -65,22 +77,23 @@ namespace PortSimulation
 
         private void Print()
         {
-            dayWin.Content = "DAY: " + Day;
+            dayWin.Content = $"DAY: {Day}";
 
             // Like I said, this method simply prints the char[] with spaces in between each character.
             DockListPrint();
 
-            // Now we print the information on the North bay only.
+            // Now we print the information about the North bay only.
             foreach (Boat b in port.boats
                 .Where(b => b.ParkingPort == PortSide.North) // Only boats in he north bay
                 .OrderBy(b => b.ParkingPlace))               // And we sort them by parking place.
             {
-                string s = $"Dock: {b.ParkingPlace,-5:00}" +
-                           $"Type: {Enum.GetName(typeof(TypeBoat), b.Type),-12}" +
-                           $"ID: {b.ID,-8}" +
-                           $"Weight: {b.Weight,6}   " +
-                           $"MaxSpeed: {b.MaxSpeedNots,3}   ";
+                string commonProperties = $"Dock: {b.ParkingPlace,-5:00}" +
+                                          $"Type: {Enum.GetName(typeof(TypeBoat), b.Type),-12}" +
+                                          $"ID: {b.ID,-8}" +
+                                          $"Weight: {b.Weight,6}   " +
+                                          $"MaxSpeed: {b.MaxSpeedNots,3}   ";
 
+                // We now print the unique property based on the type of boat.
                 string special = "";
                 switch (b.Type)
                 {
@@ -106,26 +119,27 @@ namespace PortSimulation
                         }
                     case TypeBoat.Katamaran:
                         {
-                            special = $"{"Num Beds:",-12}{((Katamaran)b).AmountBeds,4}";
+                            special = $"{"Num. Beds:",-12}{((Katamaran)b).AmountBeds,4}";
                             break;
                         }
                     default:
                         break;
                 }
 
-                // We print the normal attributes "s" followed by the special one "special".
-                listNorthWin.Items.Add(s + special);
+                // Time to print to screen.
+                listNorthWin.Items.Add(commonProperties + special);
             }
 
+            // Same procedure for the South bay.
             foreach (Boat b in port.boats
                 .Where(b => b.ParkingPort == PortSide.South) // Now is the turn for the South bay.
                 .OrderBy(b => b.ParkingPlace))               // Then again we order them by parking place.
             {
-                string s = $"Dock: {b.ParkingPlace,-5:00}" +
-                           $"Type: {Enum.GetName(typeof(TypeBoat), b.Type),-12}" +
-                           $"ID: {b.ID,-8}" +
-                           $"Weight: {b.Weight,6}   " +
-                           $"MaxSpeed: {b.MaxSpeedNots,3}   ";
+                string commonProperties = $"Dock: {b.ParkingPlace,-5:00}" +
+                                          $"Type: {Enum.GetName(typeof(TypeBoat), b.Type),-12}" +
+                                          $"ID: {b.ID,-8}" +
+                                          $"Weight: {b.Weight,6}   " +
+                                          $"MaxSpeed: {b.MaxSpeedNots,3}   ";
 
                 string special = "";
                 switch (b.Type)
@@ -159,22 +173,27 @@ namespace PortSimulation
                         break;
                 }
 
-                listSouthWin.Items.Add(s + special);
+                listSouthWin.Items.Add(commonProperties + special);
             }
 
-            // No is the turn for the boats waiting to be accepted in port.
-            // We print the list in the corresponding place in the application.
+            // Now is the turn for the boats waiting to be accepted in port.
+            // We print the list in the corresponding place in the application. The red quadrant.
             foreach (Boat b in incomingBoats)
             {
                 string s = $"ID: {b.ID,-7}" +
                            $"Type: {Enum.GetName(typeof(TypeBoat), b.Type),-11}" +
-                           $"{((!b.AcceptedInPort) ? "REJECT" : "") }"; // If the boat was not accepted!!!
+                           $"{((b.AcceptedInPort) ? "OK" : "REJECT") }"; // If the boat was not accepted!!!
                 incomingWin.Items.Add(s);
             }
 
             PrintResume();
         }
 
+        /*
+         * I decided to use regular expressions here and to make things a little bit easier,
+         * I chose a LABEL/TAG format to save the original file.
+         * That way I will only look for tags or labels and take their content.
+         */
         private bool LoadStatusFromFile(string fileName)
         {
             bool fileLocated = false;
@@ -186,34 +205,21 @@ namespace PortSimulation
                 string file = File.ReadAllText(fileName);
 
                 // We recover the day.
-                Match m = Regex.Match(file, @"<day>(\d*)</day>");
+                Match m = Regex.Match(file, @"<day>(.*)</day>");
                 Day = int.Parse(m.Groups[1].Value);
 
                 // Now let's fill the dock's codes. North and South.
-                m = Regex.Match(file, @"<docksNorth>(\w*)</docksNorth>");
-                port.docksNorth = m.Groups[1].Value.ToCharArray();
-                m = Regex.Match(file, @"<docksSouth>(\w*)</docksSouth>");
+                m = Regex.Match(file, @"<docksNorth>(.*)</docksNorth>");
+                port.docksNorth = m.Groups[1].Value.ToCharArray(); // and make them into char[]
+                m = Regex.Match(file, @"<docksSouth>(.*)</docksSouth>");
                 port.docksSouth = m.Groups[1].Value.ToCharArray();
 
-                // Let's recover all the parked boats
-                //MatchCollection mBoats = Regex.Matches(file, @"(<boat>(.*)</boat>)", RegexOptions.Singleline);
+                // Let's now recover every boat in the port. Multiple matches!
                 MatchCollection mBoats = Regex.Matches(file, @"<boat>(.+?)</boat>", RegexOptions.Singleline);
 
-                //Boat b = new RowBoat();
                 for (int i = 0; i < mBoats.Count; i++)
                 {
-                    //string boat = mBoats[i].Groups[1].Value;
                     string boat = mBoats[i].Groups[1].Value;
-
-                    //string id = Regex.Match(file, @"<ID>(\S*)</ID>").Groups[1].Value;
-                    //string parkingPort = Regex.Match(file, @"<ParkingPort>(\w*)</ParkingPort>").Groups[1].Value;
-                    //int parkingPlace = int.Parse(Regex.Match(file, @"<ParkingPlace>(\d*)</ParkingPlace>").Groups[1].Value);
-                    //string boatSpacesRequired = Regex.Match(file, @"<BoatSpacesRequired>(\w*)</BoatSpacesRequired>").Groups[1].Value;
-                    //int maxSpeedNots = int.Parse(Regex.Match(file, @"<MaxSpeedNots>(\d*)</MaxSpeedNots>").Groups[1].Value);
-                    //decimal weight = decimal.Parse(Regex.Match(file, @"<Weight>(\d*)</Weight>").Groups[1].Value);
-                    //int daysRemaining = int.Parse(Regex.Match(file, @"<DaysRemaining>(\d*)</DaysRemaining>").Groups[1].Value);
-                    //string type = Regex.Match(file, @"<Type>(\w*)</Type>").Groups[1].Value;
-                    //int special = int.Parse(Regex.Match(file, @"</Type>\W*<\w*>(\d*)</\w*>").Groups[1].Value);
 
                     string id = Regex.Match(boat, @"<ID>(.*)</ID>").Groups[1].Value;
                     string parkingPort = Regex.Match(boat, @"<ParkingPort>(.*)</ParkingPort>").Groups[1].Value;
@@ -308,8 +314,8 @@ namespace PortSimulation
             sw.WriteLine($"<day>{Day}</day>");
             sw.WriteLine();
 
-            sw.WriteLine($"<docksNorth>{new String(port.docksNorth)}</docksNorth>");
-            sw.WriteLine($"<docksSouth>{new String(port.docksSouth)}</docksSouth>");
+            sw.WriteLine($"<docksNorth>{new string(port.docksNorth)}</docksNorth>");
+            sw.WriteLine($"<docksSouth>{new string(port.docksSouth)}</docksSouth>");
             sw.WriteLine();
 
             sw.WriteLine($"<boats>");
@@ -393,61 +399,63 @@ namespace PortSimulation
                     .Where(b => b.CheckForDeparture()) // This method returns true if the remaining days is equal to 0.
                     .OrderBy(b => b.ParkingPlace);     // Let's take them in order.
 
-            foreach (Boat b in qBoats)
-            {
-                port.ReleaseBoat(b);
-            }
+            foreach (Boat b in qBoats) port.ReleaseBoat(b);
         }
 
         private void CheckInBoats()
         {
             foreach (Boat b in incomingBoats)
             {
-                bool accepted = port.CheckSpaceFor(b);
+                bool accepted = port.CheckSpaceFor(b); //CheckSpaceFor() returns TRUE if there is availability 
+                                                                            //or FALSE otherwise.
 
-                if (accepted) port.boats.Add(b);
-                else rejectedBoats.Add($"Day Rejected:{Day,3} BoatID:{b.ID}");
+                if (accepted) port.boats.Add(b); // Welcome to the port
+                else rejectedBoats.Add($"Day Rejected:{Day,3} BoatID:{b.ID}"); // Sorry fellow!
             }
         }
 
-        private List<Boat> CreateBoats(int boats)
+        private List<Boat> CreateRandomBoats(int boats)
         {
-            List<Boat> incoming = new List<Boat>();
+            List<Boat> incoming = new List<Boat>(); // List to return.
 
             for (int i = 0; i < boats; i++)
             {
-                int typeOfBoat = (new Random()).Next(0, 5);
-                switch (typeOfBoat)
+                // 0-RowBoat, 1-MotorBoat, 2-SailsBoat, 3-CargoBoat, 4-Katamaran
+                TypeBoat t = (TypeBoat)Enum.GetValues(typeof(TypeBoat)) // This returns an array of the values in TypeBoat
+                    .GetValue((new Random()).Next(0, 5));               // GetValue(i) retrieves by an index (much like [i]).
+                                                                        // In this case "Random".
+
+                switch (t)
                 {
-                    case (int)TypeBoat.Rowboat:
+                    case TypeBoat.Rowboat:
                         {
                             RowBoat r = new RowBoat(true);
                             r.Type = TypeBoat.Rowboat;
                             incoming.Add(r);
                             break;
                         }
-                    case (int)TypeBoat.Motorboat:
+                    case TypeBoat.Motorboat:
                         {
                             MotorBoat m = new MotorBoat(true);
                             m.Type = TypeBoat.Motorboat;
                             incoming.Add(m);
                             break;
                         }
-                    case (int)TypeBoat.Sailsboat:
+                    case TypeBoat.Sailsboat:
                         {
                             SailsBoat s = new SailsBoat(true);
                             s.Type = TypeBoat.Sailsboat;
                             incoming.Add(s);
                             break;
                         }
-                    case (int)TypeBoat.Cargoboat:
+                    case TypeBoat.Cargoboat:
                         {
                             CargoBoat c = new CargoBoat(true);
                             c.Type = TypeBoat.Cargoboat;
                             incoming.Add(c);
                             break;
                         }
-                    case (int)TypeBoat.Katamaran:
+                    case TypeBoat.Katamaran:
                         {
                             Katamaran k = new Katamaran(true);
                             k.Type = TypeBoat.Katamaran;
@@ -469,7 +477,7 @@ namespace PortSimulation
             ClearLists();
 
             // Every day arrives to port between 1 and 10 boats.
-            incomingBoats = CreateBoats((new Random()).Next(1, 10));
+            incomingBoats = CreateRandomBoats((new Random()).Next(1, 10));
 
             // We decrease by 1 the days available in every boat in the port.
             // When this number reaches 0. It will be time to leave.
@@ -497,6 +505,7 @@ namespace PortSimulation
         // The light blue quadrant.
         private void PrintResume()
         {
+            // Let's forget about yesterday
             resumeWin.Items.Clear();
 
             int amountRow = (port.boats.Where(b => b.Type == TypeBoat.Rowboat)).Count();
@@ -504,21 +513,20 @@ namespace PortSimulation
             int amountSails = (port.boats.Where(b => b.Type == TypeBoat.Sailsboat)).Count();
             int amountCargo = (port.boats.Where(b => b.Type == TypeBoat.Cargoboat)).Count();
             int amountKata = (port.boats.Where(b => b.Type == TypeBoat.Katamaran)).Count();
+
             decimal totalWeight = port.boats.Sum(b => b.Weight);
-            double promedioVelocidad = port.boats.Average(b => b.MaxSpeedNots);
+            
+            double averageSpeed = port.boats.Average(b => b.MaxSpeedNots);
+            
             int availablePlacesNorth = 0;
             int availablePlacesSouth = 0;
+            foreach (char c in port.docksNorth) if (c == 'A') availablePlacesNorth++;
+            foreach (char c in port.docksSouth) if (c == 'A') availablePlacesSouth++;
 
-            foreach (char c in port.docksNorth)
-            {
-                if (c == 'A') availablePlacesNorth++;
-            }
-
-            foreach (char c in port.docksSouth)
-            {
-                if (c == 'A') availablePlacesSouth++;
-            }
             int amountRejectedBoats = rejectedBoats.Count;
+
+            resumeWin.Items.Add($"{"Availability North: ".ToUpper(),-24}{availablePlacesNorth,-5}");
+            resumeWin.Items.Add($"{"Availability South: ".ToUpper(),-24}{availablePlacesSouth,-5}");
 
             resumeWin.Items.Add($"{"Amount Rowboats: ",-24}{amountRow,-5}");
             resumeWin.Items.Add($"{"Amount Motorboats: ",-24}{amountMotor,-5}");
@@ -527,15 +535,12 @@ namespace PortSimulation
             resumeWin.Items.Add($"{"Amount Katamarans: ",-24}{amountKata,-5}");
 
             resumeWin.Items.Add($"{"Total weight of boats: ",-24}{totalWeight,-5:.00}");
-            resumeWin.Items.Add($"{"Average velocity: ",-24}{promedioVelocidad,-5:.00}");
-            resumeWin.Items.Add($"{"Availability North: ",-24}{availablePlacesNorth,-5}");
-            resumeWin.Items.Add($"{"Availability South: ",-24}{availablePlacesSouth,-5}");
+            resumeWin.Items.Add($"{"Average velocity: ",-24}{averageSpeed,-5:.00}");
             resumeWin.Items.Add($"{"Rejected boats: ",-24}{amountRejectedBoats,-5}");
         }
 
         private void ClickSave(object sender, RoutedEventArgs e)
         {
-            //SaveStatusToFile();
             SaveStatusToFile("status.sav");
 
             MessageBox.Show("Saved", "Save Status", MessageBoxButton.OK);
@@ -544,8 +549,11 @@ namespace PortSimulation
         private void ClickClear(object sender, RoutedEventArgs e)
         {
             port = new Port();
+            
             resumeWin.Items.Clear();
+            
             rejectedBoats.Clear();
+
             ClearLists();
             ClearPort();
         }
