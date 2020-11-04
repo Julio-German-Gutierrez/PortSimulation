@@ -26,7 +26,7 @@ namespace PortSimulation
 
             // Check for a "state.sav" file.
             // If not found, we initialize everything at zero.
-            if (!LoadStatusFromFile())
+            if (!LoadStatusFromFile("status.sav"))
             {
                 ClearPort();
             }
@@ -175,48 +175,56 @@ namespace PortSimulation
             PrintResume();
         }
 
-        private bool LoadStatusFromFile()
+        private bool LoadStatusFromFile(string fileName)
         {
             bool fileLocated = false;
 
-            if (File.Exists("state.sav"))
+            if (File.Exists(fileName))
             {
                 fileLocated = true;
 
-                string file = File.ReadAllText("state.sav");
-                Match m = Regex.Match(file, @"<day>(\d*)</day>");
+                string file = File.ReadAllText(fileName);
 
+                // We recover the day.
+                Match m = Regex.Match(file, @"<day>(\d*)</day>");
                 Day = int.Parse(m.Groups[1].Value);
 
+                // Now let's fill the dock's codes. North and South.
                 m = Regex.Match(file, @"<docksNorth>(\w*)</docksNorth>");
                 port.docksNorth = m.Groups[1].Value.ToCharArray();
                 m = Regex.Match(file, @"<docksSouth>(\w*)</docksSouth>");
                 port.docksSouth = m.Groups[1].Value.ToCharArray();
 
-                MatchCollection mID = Regex.Matches(file, @"<ID>(\S*)</ID>");
-                MatchCollection mParkingPort = Regex.Matches(file, @"<ParkingPort>(\w*)</ParkingPort>");
-                MatchCollection mParkingPlace = Regex.Matches(file, @"<ParkingPlace>(\d*)</ParkingPlace>");
-                MatchCollection mBoatSpacesRequired = Regex.Matches(file, @"<BoatSpacesRequired>(\w*)</BoatSpacesRequired>");
-                MatchCollection mMaxSpeedNots = Regex.Matches(file, @"<MaxSpeedNots>(\d*)</MaxSpeedNots>");
-                MatchCollection mWeight = Regex.Matches(file, @"<Weight>(\d*)</Weight>");
-                MatchCollection mDaysRemaining = Regex.Matches(file, @"<DaysRemaining>(\d*)</DaysRemaining>");
-                //MatchCollection mDayAllowedEntrance = Regex.Matches(file, @"<DayAllowedEntrance>(\d*)</DayAllowedEntrance>");
-                MatchCollection mType = Regex.Matches(file, @"<Type>(\w*)</Type>");
-                MatchCollection mSpecial = Regex.Matches(file, @"</Type>\W*<\w*>(\d*)</\w*>");
+                // Let's recover all the parked boats
+                //MatchCollection mBoats = Regex.Matches(file, @"(<boat>(.*)</boat>)", RegexOptions.Singleline);
+                MatchCollection mBoats = Regex.Matches(file, @"<boat>(.+?)</boat>", RegexOptions.Singleline);
 
-                for (int i = 0; i < mID.Count; i++)
+                //Boat b = new RowBoat();
+                for (int i = 0; i < mBoats.Count; i++)
                 {
-                    string id = mID[i].Groups[1].Value;
-                    string parkingPort = mParkingPort[i].Groups[1].Value;
-                    int parkingPlace = int.Parse(mParkingPlace[i].Groups[1].Value);
-                    string boatSpacesRequired = mBoatSpacesRequired[i].Groups[1].Value;
-                    int maxSpeedNots = int.Parse(mMaxSpeedNots[i].Groups[1].Value);
-                    decimal weight = decimal.Parse(mWeight[i].Groups[1].Value);
-                    int dayAllowedEntrance = int.Parse(mDaysRemaining[i].Groups[1].Value);
-                    //int dayAllowedEntrance = int.Parse(mDayAllowedEntrance[i].Groups[1].Value);
-                    string type = mType[i].Groups[1].Value;
-                    int special = int.Parse(mSpecial[i].Groups[1].Value);
+                    //string boat = mBoats[i].Groups[1].Value;
+                    string boat = mBoats[i].Groups[1].Value;
 
+                    //string id = Regex.Match(file, @"<ID>(\S*)</ID>").Groups[1].Value;
+                    //string parkingPort = Regex.Match(file, @"<ParkingPort>(\w*)</ParkingPort>").Groups[1].Value;
+                    //int parkingPlace = int.Parse(Regex.Match(file, @"<ParkingPlace>(\d*)</ParkingPlace>").Groups[1].Value);
+                    //string boatSpacesRequired = Regex.Match(file, @"<BoatSpacesRequired>(\w*)</BoatSpacesRequired>").Groups[1].Value;
+                    //int maxSpeedNots = int.Parse(Regex.Match(file, @"<MaxSpeedNots>(\d*)</MaxSpeedNots>").Groups[1].Value);
+                    //decimal weight = decimal.Parse(Regex.Match(file, @"<Weight>(\d*)</Weight>").Groups[1].Value);
+                    //int daysRemaining = int.Parse(Regex.Match(file, @"<DaysRemaining>(\d*)</DaysRemaining>").Groups[1].Value);
+                    //string type = Regex.Match(file, @"<Type>(\w*)</Type>").Groups[1].Value;
+                    //int special = int.Parse(Regex.Match(file, @"</Type>\W*<\w*>(\d*)</\w*>").Groups[1].Value);
+
+                    string id = Regex.Match(boat, @"<ID>(.*)</ID>").Groups[1].Value;
+                    string parkingPort = Regex.Match(boat, @"<ParkingPort>(.*)</ParkingPort>").Groups[1].Value;
+                    int parkingPlace = int.Parse(Regex.Match(boat, @"<ParkingPlace>(.*)</ParkingPlace>").Groups[1].Value);
+                    string boatSpacesRequired = Regex.Match(boat, @"<BoatSpacesRequired>(.*)</BoatSpacesRequired>").Groups[1].Value;
+                    int maxSpeedNots = int.Parse(Regex.Match(boat, @"<MaxSpeedNots>(.*)</MaxSpeedNots>").Groups[1].Value);
+                    decimal weight = decimal.Parse(Regex.Match(boat, @"<Weight>(.*)</Weight>").Groups[1].Value);
+                    int daysRemaining = int.Parse(Regex.Match(boat, @"<DaysRemaining>(.*)</DaysRemaining>").Groups[1].Value);
+                    string type = Regex.Match(boat, @"<Type>(.*)</Type>").Groups[1].Value;
+                    int special = int.Parse(Regex.Match(boat, @"</Type>\W*<.*>(.*)</.*>").Groups[1].Value);
+                    
                     Boat b = new RowBoat();
                     switch (type)
                     {
@@ -247,6 +255,13 @@ namespace PortSimulation
                                 ((CargoBoat)b).NumberContainers = special;
                                 break;
                             }
+                        case "Katamaran":
+                            {
+                                b = new Katamaran();
+                                b.Type = TypeBoat.Katamaran;
+                                ((Katamaran)b).AmountBeds = special;
+                                break;
+                            }
                     }
 
                     switch (parkingPort)
@@ -261,8 +276,6 @@ namespace PortSimulation
                                 b.ParkingPort = PortSide.South;
                                 break;
                             }
-                        default:
-                            break;
                     }
 
                     b.ID = id;
@@ -270,16 +283,15 @@ namespace PortSimulation
                     b.BoatSpacesRequired = boatSpacesRequired;
                     b.MaxSpeedNots = maxSpeedNots;
                     b.Weight = weight;
-                    b.DaysRemaining = dayAllowedEntrance;
-                    //b.DayAllowedEntrance = dayAllowedEntrance;
+                    b.DaysRemaining = daysRemaining;
 
                     port.boats.Add(b);
                 }
 
-                MatchCollection mc = Regex.Matches(file, @"Day Rejected:\d*\s*BoatID:\S*"); //Day Rejected:2   BoatID:S-UBY ||
+                MatchCollection mc = Regex.Matches(file, @"<rejected>(.*)</rejected>");
                 for (int i = 0; i < mc.Count; i++)
                 {
-                    rejectedBoats.Add(mc[i].Value);
+                    rejectedBoats.Add(mc[i].Groups[1].Value);
                 }
 
                 Print();
@@ -288,65 +300,72 @@ namespace PortSimulation
             return fileLocated;
         }
 
-        private void SaveStatusToFile()
+        private void SaveStatusToFile(string fileName)
         {
             // Save to disk.
-            StreamWriter sw = File.CreateText("state.sav");
+            StreamWriter sw = File.CreateText(fileName);
 
             sw.WriteLine($"<day>{Day}</day>");
+            sw.WriteLine();
 
             sw.WriteLine($"<docksNorth>{new String(port.docksNorth)}</docksNorth>");
             sw.WriteLine($"<docksSouth>{new String(port.docksSouth)}</docksSouth>");
+            sw.WriteLine();
 
             sw.WriteLine($"<boats>");
             foreach (Boat b in port.boats.OrderBy(b => b.ParkingPlace))
             {
-                sw.WriteLine($"\t<ID>{b.ID}</ID>");
-                sw.WriteLine($"\t<ParkingPort>{b.ParkingPort}</ParkingPort>");
-                sw.WriteLine($"\t<ParkingPlace>{b.ParkingPlace}</ParkingPlace>");
-                sw.WriteLine($"\t<BoatSpacesRequired>{b.BoatSpacesRequired}</BoatSpacesRequired>");
-                sw.WriteLine($"\t<MaxSpeedNots>{b.MaxSpeedNots}</MaxSpeedNots>");
-                sw.WriteLine($"\t<Weight>{b.Weight}</Weight>");
-                sw.WriteLine($"\t<DaysRemaining>{b.DaysRemaining}</DaysRemaining>");
-                //sw.WriteLine($"\t<DayAllowedEntrance>{b.DayAllowedEntrance}</DayAllowedEntrance>");
-                sw.WriteLine($"\t<Type>{b.Type}</Type>");
+                sw.WriteLine($"\t<boat>");
+
+                sw.WriteLine($"\t\t<ID>{b.ID}</ID>");
+                sw.WriteLine($"\t\t<ParkingPort>{b.ParkingPort}</ParkingPort>");
+                sw.WriteLine($"\t\t<ParkingPlace>{b.ParkingPlace}</ParkingPlace>");
+                sw.WriteLine($"\t\t<BoatSpacesRequired>{b.BoatSpacesRequired}</BoatSpacesRequired>");
+                sw.WriteLine($"\t\t<MaxSpeedNots>{b.MaxSpeedNots}</MaxSpeedNots>");
+                sw.WriteLine($"\t\t<Weight>{b.Weight}</Weight>");
+                sw.WriteLine($"\t\t<DaysRemaining>{b.DaysRemaining}</DaysRemaining>");
+                sw.WriteLine($"\t\t<Type>{b.Type}</Type>");
 
                 switch (b.Type)
                 {
                     case TypeBoat.Rowboat:
                         {
-                            sw.WriteLine($"\t<Passengers>{((RowBoat)b).Passengers}</Passengers>");
+                            sw.WriteLine($"\t\t<Passengers>{((RowBoat)b).Passengers}</Passengers>");
                             break;
                         }
                     case TypeBoat.Motorboat:
                         {
-                            sw.WriteLine($"\t<HorsePower>{((MotorBoat)b).HorsePower}</HorsePower>");
+                            sw.WriteLine($"\t\t<HorsePower>{((MotorBoat)b).HorsePower}</HorsePower>");
                             break;
                         }
                     case TypeBoat.Sailsboat:
                         {
-                            sw.WriteLine($"\t<BoatLenght>{((SailsBoat)b).BoatLenght}</BoatLenght>");
+                            sw.WriteLine($"\t\t<BoatLenght>{((SailsBoat)b).BoatLenght}</BoatLenght>");
                             break;
                         }
                     case TypeBoat.Cargoboat:
                         {
-                            sw.WriteLine($"\t<NumberContainers>{((CargoBoat)b).NumberContainers}</NumberContainers>");
+                            sw.WriteLine($"\t\t<NumberContainers>{((CargoBoat)b).NumberContainers}</NumberContainers>");
                             break;
                         }
                     case TypeBoat.Katamaran:
                         {
-                            sw.WriteLine($"\t<AmountBeds>{((Katamaran)b).AmountBeds}</AmountBeds>");
+                            sw.WriteLine($"\t\t<AmountBeds>{((Katamaran)b).AmountBeds}</AmountBeds>");
                             break;
                         }
                 }
+                sw.WriteLine($"\t</boat>");
                 sw.WriteLine();
             }
             sw.WriteLine($"</boats>");
+            sw.WriteLine();
 
             sw.WriteLine($"<rejectedBoats>");
             foreach (string s in rejectedBoats)
             {
-                sw.WriteLine(s);
+                sw.Write($"\t<rejected>{s}</rejected>");
+
+                sw.WriteLine();
             }
             sw.WriteLine($"</rejectedBoats>");
 
@@ -355,8 +374,11 @@ namespace PortSimulation
 
         private void ClearLists()
         {
+            // Clear the list of incomingBoats and the red quadrant in the application.
             incomingBoats.Clear();
             incomingWin.Items.Clear();
+
+            // These are the two green quadrants in the application.
             listNorthWin.Items.Clear();
             listSouthWin.Items.Clear();
         }
@@ -384,7 +406,7 @@ namespace PortSimulation
                 bool accepted = port.CheckSpaceFor(b);
 
                 if (accepted) port.boats.Add(b);
-                else rejectedBoats.Add($"Day Rejected:{Day,-4}BoatID:{b.ID,-6}");
+                else rejectedBoats.Add($"Day Rejected:{Day,3} BoatID:{b.ID}");
             }
         }
 
@@ -432,8 +454,6 @@ namespace PortSimulation
                             incoming.Add(k);
                             break;
                         }
-                    default:
-                        break;
                 }
             }
 
@@ -443,7 +463,7 @@ namespace PortSimulation
         private void ClickNext(object sender, RoutedEventArgs e)
         {
             Day++;
-            
+
             nextButton.Content = "Go to day " + (Day + 1);
 
             ClearLists();
@@ -473,6 +493,8 @@ namespace PortSimulation
             }
         }
 
+        // This method prints information in the resume section of the application.
+        // The light blue quadrant.
         private void PrintResume()
         {
             resumeWin.Items.Clear();
@@ -486,10 +508,12 @@ namespace PortSimulation
             double promedioVelocidad = port.boats.Average(b => b.MaxSpeedNots);
             int availablePlacesNorth = 0;
             int availablePlacesSouth = 0;
+
             foreach (char c in port.docksNorth)
             {
                 if (c == 'A') availablePlacesNorth++;
             }
+
             foreach (char c in port.docksSouth)
             {
                 if (c == 'A') availablePlacesSouth++;
@@ -511,7 +535,8 @@ namespace PortSimulation
 
         private void ClickSave(object sender, RoutedEventArgs e)
         {
-            SaveStatusToFile();
+            //SaveStatusToFile();
+            SaveStatusToFile("status.sav");
 
             MessageBox.Show("Saved", "Save Status", MessageBoxButton.OK);
         }

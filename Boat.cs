@@ -53,34 +53,11 @@ namespace PortSimulation
             string IDLetters = "";
             int numberOfDigits = 3; // Amount of ID letters.
 
-            switch (Type)
-            {
-                case TypeBoat.Rowboat:
-                    {
-                        IDType = "R";
-                        break;
-                    }
-                case TypeBoat.Motorboat:
-                    {
-                        IDType = "M";
-                        break;
-                    }
-                case TypeBoat.Sailsboat:
-                    {
-                        IDType = "S";
-                        break;
-                    }
-                case TypeBoat.Cargoboat:
-                    {
-                        IDType = "C";
-                        break;
-                    }
-                case TypeBoat.Katamaran:
-                    {
-                        IDType = "K";
-                        break;
-                    }
-            }
+            if (this is RowBoat) IDType = "R";
+            else if (this is MotorBoat) IDType = "M";
+            else if (this is SailsBoat) IDType = "S";
+            else if (this is CargoBoat) IDType = "C";
+            else if (this is Katamaran) IDType = "K";
 
             for (int i = 0; i < numberOfDigits; i++)
             {
