@@ -4,6 +4,15 @@ using System.Text;
 
 namespace PortSimulation
 {
+    enum TypeBoat
+    {
+        Rowboat,
+        Motorboat,
+        Sailsboat,
+        Cargoboat,
+        Katamaran
+    }
+
     abstract class Boat
     {
         public string ID { get; set; }
@@ -13,81 +22,75 @@ namespace PortSimulation
         public string BoatSpacesRequired { get; set; }
         public int ParkingPlace { get; set; }
         public PortSide ParkingPort { get; set; }
-        public int DayAllowedEntrance { get; set; }
+        public int DaysRemaining { get; set; }
         public TypeBoat Type { get; set; }
-
-        public enum TypeBoat
-        {
-            Rowboat,
-            Motorboat,
-            Sailsboat,
-            Cargoboat,
-            Katamaran
-        }
 
         protected void InitBoat()
         {
-            ID = AssignID();
-            Weight = AssignWeight();
-            MaxSpeedNots = AssignMaxSpeedNots();
+            ID = AssignRandomID();
+            Weight = AssignRandomWeight();
+            MaxSpeedNots = AssignRandomMaxSpeedNots();
             BoatSpacesRequired = AssignBoatStringType();
         }
 
         private string AssignBoatStringType()
         {
-            string boatType = "";
+            string sType = "";
 
-            if (this is RowBoat) boatType = "A";
-            else if (this is MotorBoat) boatType = "A";
-            else if (this is SailsBoat) boatType = "AA";
-            else if (this is CargoBoat) boatType = "AAAA";
-            else if (this is Katamaran) boatType = "AAA";
+            if (this is RowBoat) sType = "A";
+            else if (this is MotorBoat) sType = "A";
+            else if (this is SailsBoat) sType = "AA";
+            else if (this is CargoBoat) sType = "AAAA";
+            else if (this is Katamaran) sType = "AAA";
 
-            return boatType;
+            return sType;
         }
 
-        protected string AssignID()
+        protected string AssignRandomID()
         {
-            // Full ID is composed of IDType and IDNumber
+            // An ID is composed of IDType and IDNumber
             string IDType = "";
-            string IDNumber = "";
-            int numberOfDigits = 3; // Number of digits after de type.
+            string IDLetters = "";
+            int numberOfDigits = 3; // Amount of ID letters.
 
-            if (this is RowBoat)
+            switch (Type)
             {
-                Type = Boat.TypeBoat.Rowboat;
-                IDType = "R";
-            }
-            else if (this is MotorBoat)
-            {
-                Type = Boat.TypeBoat.Motorboat;
-                IDType = "M";
-            }
-            else if (this is SailsBoat)
-            {
-                Type = Boat.TypeBoat.Sailsboat;
-                IDType = "S";
-            }
-            else if (this is CargoBoat)
-            {
-                Type = Boat.TypeBoat.Cargoboat;
-                IDType = "C";
-            }
-            else if (this is Katamaran)
-            {
-                Type = Boat.TypeBoat.Katamaran;
-                IDType = "K";
+                case TypeBoat.Rowboat:
+                    {
+                        IDType = "R";
+                        break;
+                    }
+                case TypeBoat.Motorboat:
+                    {
+                        IDType = "M";
+                        break;
+                    }
+                case TypeBoat.Sailsboat:
+                    {
+                        IDType = "S";
+                        break;
+                    }
+                case TypeBoat.Cargoboat:
+                    {
+                        IDType = "C";
+                        break;
+                    }
+                case TypeBoat.Katamaran:
+                    {
+                        IDType = "K";
+                        break;
+                    }
             }
 
             for (int i = 0; i < numberOfDigits; i++)
             {
-                IDNumber += (char)(new Random().Next(65, 91)); // A=65 -> Z=90
+                IDLetters += (char)(new Random().Next(65, 91)); // A=65 -> Z=90
             }
 
-            return IDType + "-" + IDNumber;
+            return $"{IDType}-{IDLetters}";
         }
 
-        protected decimal AssignWeight()
+        protected decimal AssignRandomWeight()
         {
             decimal weight = 0;
 
@@ -101,74 +104,23 @@ namespace PortSimulation
             return weight;
         }
 
-        protected int AssignMaxSpeedNots()
+        protected int AssignRandomMaxSpeedNots()
         {
             int maxSpeed = 0;
 
-            if (this is RowBoat) maxSpeed = (new Random()).Next(0, 4);
-            else if (this is MotorBoat) maxSpeed = (new Random()).Next(0, 61);
-            else if (this is SailsBoat) maxSpeed = (new Random()).Next(0, 13);
-            else if (this is CargoBoat) maxSpeed = (new Random()).Next(0, 21);
-            else if (this is Katamaran) maxSpeed = (new Random()).Next(0, 12);
+            if (this is RowBoat) maxSpeed = (new Random()).Next(1, 4);
+            else if (this is MotorBoat) maxSpeed = (new Random()).Next(1, 61);
+            else if (this is SailsBoat) maxSpeed = (new Random()).Next(1, 13);
+            else if (this is CargoBoat) maxSpeed = (new Random()).Next(1, 21);
+            else if (this is Katamaran) maxSpeed = (new Random()).Next(1, 12);
 
             return maxSpeed;
         }
 
-        /*
-         * How much time in port the katamaran?
-         */
         internal bool CheckForDeparture()
         {
-            bool departure = false;
-
-            int daysInPort = MainWindow.Day - DayAllowedEntrance;
-            switch(daysInPort)
-            {
-                case 1:
-                    {
-                        if(this is RowBoat)
-                        {
-                            departure = true;
-                        }
-                        break;
-                    }
-                case 3:
-                    {
-                        if (this is MotorBoat)
-                        {
-                            departure = true;
-                        }
-                        break;
-                    }
-                case 4:
-                    {
-                        if (this is SailsBoat)
-                        {
-                            departure = true;
-                        }
-                        break;
-                    }
-                case 5:
-                    {
-                        if (this is Katamaran)
-                        {
-                            departure = true;
-                        }
-                        break;
-                    }
-                case 6:
-                    {
-                        if (this is CargoBoat)
-                        {
-                            departure = true;
-                        }
-                        break;
-                    }
-                default:
-                    break;
-            }
-
-            return departure;
+            if (DaysRemaining == 0) return true;
+            else return false;
         }
     }
 }
