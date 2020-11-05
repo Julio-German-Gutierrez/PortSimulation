@@ -87,7 +87,7 @@ namespace PortSimulation
                 .Where(b => b.ParkingPort == PortSide.North) // Only boats in he north bay
                 .OrderBy(b => b.ParkingPlace))               // And we sort them by parking place.
             {
-                string commonProperties = $"Dock: {b.ParkingPlace,-3:00}" +
+                string commonProperties = $"Dock: {b.ParkingPlace + 1,-3:00}" +
                                           $"{Enum.GetName(typeof(TypeBoat), b.Type),-12}" +
                                           $"ID: {b.ID,-8}" +
                                           $"Weight: {b.Weight,5} Kg   " +
@@ -135,7 +135,7 @@ namespace PortSimulation
                 .Where(b => b.ParkingPort == PortSide.South) // Now is the turn for the South bay.
                 .OrderBy(b => b.ParkingPlace))               // Then again we order them by parking place.
             {
-                string commonProperties = $"Dock: {b.ParkingPlace,-3:00}" +
+                string commonProperties = $"Dock: {b.ParkingPlace + 1,-3:00}" +
                                           $"{Enum.GetName(typeof(TypeBoat), b.Type),-12}" +
                                           $"ID: {b.ID,-8}" +
                                           $"Weight: {b.Weight,5} Kg   " +
@@ -285,7 +285,7 @@ namespace PortSimulation
                     }
 
                     b.ID = id;
-                    b.ParkingPlace = parkingPlace;
+                    b.ParkingPlace = parkingPlace - 1;
                     b.BoatSpacesRequired = boatSpacesRequired;
                     b.MaxSpeedNots = maxSpeedNots;
                     b.Weight = weight;
@@ -325,7 +325,7 @@ namespace PortSimulation
 
                 sw.WriteLine($"\t\t<ID>{b.ID}</ID>");
                 sw.WriteLine($"\t\t<ParkingPort>{b.ParkingPort}</ParkingPort>");
-                sw.WriteLine($"\t\t<ParkingPlace>{b.ParkingPlace}</ParkingPlace>");
+                sw.WriteLine($"\t\t<ParkingPlace>{b.ParkingPlace + 1}</ParkingPlace>");
                 sw.WriteLine($"\t\t<BoatSpacesRequired>{b.BoatSpacesRequired}</BoatSpacesRequired>");
                 sw.WriteLine($"\t\t<MaxSpeedNots>{b.MaxSpeedNots}</MaxSpeedNots>");
                 sw.WriteLine($"\t\t<Weight>{b.Weight}</Weight>");
