@@ -87,11 +87,11 @@ namespace PortSimulation
                 .Where(b => b.ParkingPort == PortSide.North) // Only boats in he north bay
                 .OrderBy(b => b.ParkingPlace))               // And we sort them by parking place.
             {
-                string commonProperties = $"Dock: {b.ParkingPlace,-5:00}" +
-                                          $"Type: {Enum.GetName(typeof(TypeBoat), b.Type),-12}" +
+                string commonProperties = $"Dock: {b.ParkingPlace,-3:00}" +
+                                          $"{Enum.GetName(typeof(TypeBoat), b.Type),-12}" +
                                           $"ID: {b.ID,-8}" +
-                                          $"Weight: {b.Weight,6}   " +
-                                          $"MaxSpeed: {b.MaxSpeedNots,3}   ";
+                                          $"Weight: {b.Weight,5} Kg   " +
+                                          $"Max Speed: {b.MaxSpeedNots * 1.852,4:00.0} Km/h   ";
 
                 // We now print the unique property based on the type of boat.
                 string special = "";
@@ -135,11 +135,11 @@ namespace PortSimulation
                 .Where(b => b.ParkingPort == PortSide.South) // Now is the turn for the South bay.
                 .OrderBy(b => b.ParkingPlace))               // Then again we order them by parking place.
             {
-                string commonProperties = $"Dock: {b.ParkingPlace,-5:00}" +
-                                          $"Type: {Enum.GetName(typeof(TypeBoat), b.Type),-12}" +
+                string commonProperties = $"Dock: {b.ParkingPlace,-3:00}" +
+                                          $"{Enum.GetName(typeof(TypeBoat), b.Type),-12}" +
                                           $"ID: {b.ID,-8}" +
-                                          $"Weight: {b.Weight,6}   " +
-                                          $"MaxSpeed: {b.MaxSpeedNots,3}   ";
+                                          $"Weight: {b.Weight,5} Kg   " +
+                                          $"Max Speed: {b.MaxSpeedNots * 1.852,4:00.0} Km/h   ";
 
                 string special = "";
                 switch (b.Type)
@@ -180,9 +180,9 @@ namespace PortSimulation
             // We print the list in the corresponding place in the application. The red quadrant.
             foreach (Boat b in incomingBoats)
             {
-                string s = $"ID: {b.ID,-7}" +
-                           $"Type: {Enum.GetName(typeof(TypeBoat), b.Type),-11}" +
-                           $"{((b.AcceptedInPort) ? "OK" : "REJECT") }"; // If the boat was not accepted!!!
+                string s = $"ID: {b.ID,-8}" +
+                           $"Type: {Enum.GetName(typeof(TypeBoat), b.Type),-12}" +
+                           $"{((!b.AcceptedInPort) ? "REJECTED" : "") }"; // If the boat was not accepted!!!
                 incomingWin.Items.Add(s);
             }
 
@@ -410,7 +410,7 @@ namespace PortSimulation
                                                                             //or FALSE otherwise.
 
                 if (accepted) port.boats.Add(b); // Welcome to the port
-                else rejectedBoats.Add($"Day Rejected:{Day,3} BoatID:{b.ID}"); // Sorry fellow!
+                else rejectedBoats.Add($"Day Rejected:{Day,4}BoatID:{b.ID}  "); // Sorry fellow!
             }
         }
 
@@ -534,8 +534,8 @@ namespace PortSimulation
             resumeWin.Items.Add($"{"Amount Cargoboats: ",-24}{amountCargo,-5}");
             resumeWin.Items.Add($"{"Amount Katamarans: ",-24}{amountKata,-5}");
 
-            resumeWin.Items.Add($"{"Total weight of boats: ",-24}{totalWeight,-5:.00}");
-            resumeWin.Items.Add($"{"Average velocity: ",-24}{averageSpeed,-5:.00}");
+            resumeWin.Items.Add($"{"Total weight of boats: ",-24}{totalWeight,-5:.00} Kg");
+            resumeWin.Items.Add($"{"Average velocity: ",-24}{averageSpeed * 1.852,-5:00.00} Km/h");
             resumeWin.Items.Add($"{"Rejected boats: ",-24}{amountRejectedBoats,-5}");
         }
 
