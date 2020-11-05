@@ -7,7 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="img\ancla_icon.png" />
     <None Remove="img\splash.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="img\ancla_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
