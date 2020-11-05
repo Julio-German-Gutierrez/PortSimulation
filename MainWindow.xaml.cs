@@ -534,7 +534,7 @@ namespace PortSimulation
             resumeWin.Items.Add($"{"Amount Cargoboats: ",-24}{amountCargo,-5}");
             resumeWin.Items.Add($"{"Amount Katamarans: ",-24}{amountKata,-5}");
 
-            resumeWin.Items.Add($"{"Total weight of boats: ",-24}{totalWeight,-5:.00} Kg");
+            resumeWin.Items.Add($"{"Total weight of boats: ",-24}{totalWeight / 1000,-5:.00} Ton");
             resumeWin.Items.Add($"{"Average velocity: ",-24}{averageSpeed * 1.852,-5:00.00} Km/h");
             resumeWin.Items.Add($"{"Rejected boats: ",-24}{amountRejectedBoats,-5}");
         }
