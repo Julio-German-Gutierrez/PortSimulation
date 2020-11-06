@@ -22,7 +22,159 @@
                 <ColumnDefinition Width="12*" />
             </Grid.ColumnDefinitions>
             <Label x:Name="dayWin" Content="DAY: " Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Courier New" FontWeight="Bold" FontSize="14" Foreground="White" />
-            <Label x:Name="dockListWin" Content="DOCKS: " Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Courier New" FontWeight="Bold" FontSize="14" Foreground="Yellow" FontStretch="Normal" />
+            <Label x:Name="dockListWin" Content="DOCKS: " Visibility="Hidden" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Courier New" FontWeight="Bold" FontSize="14" Foreground="Yellow" FontStretch="Normal" />
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" /> <!-- DOCKS:-->
+                    <ColumnDefinition Width="11*" /> <!-- GRAPHICAL-->
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+
+                
+                <Grid x:Name="northGrid" Grid.Column="1" Grid.Row="0" Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" Background="Aqua"/>
+                    <Border Grid.Column="1" Background="Aqua"/>
+                    <Border Grid.Column="2" Background="Aqua"/>
+                    <Border Grid.Column="3" Background="Aqua"/>
+                    <Border Grid.Column="4" Background="Aqua"/>
+                    <Border Grid.Column="5" Background="Aqua"/>
+                    <Border Grid.Column="6" Background="Aqua"/>
+                    <Border Grid.Column="7" Background="Aqua"/>
+                    <Border Grid.Column="8" Background="Aqua"/>
+                    <Border Grid.Column="9" Background="Aqua"/>
+                    <Border Grid.Column="10" Background="Aqua"/>
+                    <Border Grid.Column="11" Background="Aqua"/>
+                    <Border Grid.Column="12" Background="Aqua"/>
+                    <Border Grid.Column="13" Background="Aqua"/>
+                    <Border Grid.Column="14" Background="Aqua"/>
+                    <Border Grid.Column="15" Background="Aqua"/>
+                    <Border Grid.Column="16" Background="Aqua"/>
+                    <Border Grid.Column="17" Background="Aqua"/>
+                    <Border Grid.Column="18" Background="Aqua"/>
+                    <Border Grid.Column="19" Background="Aqua"/>
+                    <Border Grid.Column="20" Background="Aqua"/>
+                    <Border Grid.Column="21" Background="Aqua"/>
+                    <Border Grid.Column="22" Background="Aqua"/>
+                    <Border Grid.Column="23" Background="Aqua"/>
+                    <Border Grid.Column="24" Background="Aqua"/>
+                    <Border Grid.Column="25" Background="Aqua"/>
+                    <Border Grid.Column="26" Background="Aqua"/>
+                    <Border Grid.Column="27" Background="Aqua"/>
+                    <Border Grid.Column="28" Background="Aqua"/>
+                    <Border Grid.Column="29" Background="Aqua"/>
+                    <Border Grid.Column="30" Background="Aqua"/>
+                    <Border Grid.Column="31" Background="Aqua"/>
+                </Grid>
+                <Grid x:Name="southGrid" Grid.Column="1" Grid.Row="1" Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" Background="Aqua"/>
+                    <Border Grid.Column="1" Background="Aqua"/>
+                    <Border Grid.Column="2" Background="Aqua"/>
+                    <Border Grid.Column="3" Background="Aqua"/>
+                    <Border Grid.Column="4" Background="Aqua"/>
+                    <Border Grid.Column="5" Background="Aqua"/>
+                    <Border Grid.Column="6" Background="Aqua"/>
+                    <Border Grid.Column="7" Background="Aqua"/>
+                    <Border Grid.Column="8" Background="Aqua"/>
+                    <Border Grid.Column="9" Background="Aqua"/>
+                    <Border Grid.Column="10" Background="Aqua"/>
+                    <Border Grid.Column="11" Background="Aqua"/>
+                    <Border Grid.Column="12" Background="Aqua"/>
+                    <Border Grid.Column="13" Background="Aqua"/>
+                    <Border Grid.Column="14" Background="Aqua"/>
+                    <Border Grid.Column="15" Background="Aqua"/>
+                    <Border Grid.Column="16" Background="Aqua"/>
+                    <Border Grid.Column="17" Background="Aqua"/>
+                    <Border Grid.Column="18" Background="Aqua"/>
+                    <Border Grid.Column="19" Background="Aqua"/>
+                    <Border Grid.Column="20" Background="Aqua"/>
+                    <Border Grid.Column="21" Background="Aqua"/>
+                    <Border Grid.Column="22" Background="Aqua"/>
+                    <Border Grid.Column="23" Background="Aqua"/>
+                    <Border Grid.Column="24" Background="Aqua"/>
+                    <Border Grid.Column="25" Background="Aqua"/>
+                    <Border Grid.Column="26" Background="Aqua"/>
+                    <Border Grid.Column="27" Background="Aqua"/>
+                    <Border Grid.Column="28" Background="Aqua"/>
+                    <Border Grid.Column="29" Background="Aqua"/>
+                    <Border Grid.Column="30" Background="Aqua"/>
+                    <Border Grid.Column="31" Background="Aqua"/>
+                </Grid>
+
+                
+                <Label Grid.Column="0" Grid.Row="0" Content="North:" HorizontalAlignment="Right" VerticalAlignment="Center" FontFamily="Courier New" FontWeight="Bold" FontSize="14" Foreground="Yellow" FontStretch="Normal" />
+                <Label Grid.Column="0" Grid.Row="1" Content="South:" HorizontalAlignment="Right" VerticalAlignment="Center" FontFamily="Courier New" FontWeight="Bold" FontSize="14" Foreground="Yellow" FontStretch="Normal" />
+            </Grid>
         </Grid>
         <Grid Grid.Row="2" ShowGridLines="False"> <!-- Boats at the docks / Incoming boats -->
             <Grid.ColumnDefinitions>

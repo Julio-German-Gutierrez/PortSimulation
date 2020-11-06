@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace PortSimulation
 {
@@ -24,11 +27,109 @@ namespace PortSimulation
 
             InitializeComponent();
 
+            //InitDocksWin();
+
             // Check for a "status.sav" file.
             // If not found, we initialize everything at zero.
             if (!LoadStatusFromFile("status.sav"))
             {
                 ClearPort();
+            }
+        }
+
+        private void InitDocksWin()
+        {
+            //for (int i = 0; i < northGrid.Children.Count; i++)
+            //{
+            //    ((Border)northGrid.Children[i]).Background = Brushes.Green;
+            //    ((Border)southGrid.Children[i]).Background = Brushes.Green;
+            //}
+
+
+            for (int i = 0; i < port.docksNorth.Length; i++)
+            {
+                switch (port.docksNorth[i])
+                {
+                    case 'A':
+                        {
+                            ((Border)northGrid.Children[i]).Background = Brushes.Green;
+                            break;
+                        }
+                    case 'R':
+                        {
+                            ((Border)northGrid.Children[i]).Background = Brushes.Brown;
+                            break;
+                        }
+                    case 'D':
+                        {
+                            ((Border)northGrid.Children[i]).Background = Brushes.Orange;
+                            break;
+                        }
+                    case 'M':
+                        {
+                            ((Border)northGrid.Children[i]).Background = Brushes.Red;
+                            break;
+                        }
+                    case 'S':
+                        {
+                            ((Border)northGrid.Children[i]).Background = Brushes.White;
+                            break;
+                        }
+                    case 'C':
+                        {
+                            ((Border)northGrid.Children[i]).Background = Brushes.Blue;
+                            break;
+                        }
+                    case 'K':
+                        {
+                            ((Border)northGrid.Children[i]).Background = Brushes.Yellow;
+                            break;
+                        }
+                    default:
+                        break;
+                }
+
+                switch (port.docksSouth[i])
+                {
+                    case 'A':
+                        {
+                            ((Border)southGrid.Children[i]).Background = Brushes.Green;
+                            break;
+                        }
+                    case 'R':
+                        {
+                            ((Border)southGrid.Children[i]).Background = Brushes.Brown;
+                            break;
+                        }
+                    case 'D':
+                        {
+                            ((Border)southGrid.Children[i]).Background = Brushes.Orange;
+                            break;
+                        }
+                    case 'M':
+                        {
+                            ((Border)southGrid.Children[i]).Background = Brushes.Red;
+                            break;
+                        }
+                    case 'S':
+                        {
+                            ((Border)southGrid.Children[i]).Background = Brushes.White;
+                            break;
+                        }
+                    case 'C':
+                        {
+                            ((Border)southGrid.Children[i]).Background = Brushes.Blue;
+                            break;
+                        }
+                    case 'K':
+                        {
+                            ((Border)southGrid.Children[i]).Background = Brushes.Yellow;
+                            break;
+                        }
+                    default:
+                        break;
+                }
+
             }
         }
 
@@ -80,7 +181,8 @@ namespace PortSimulation
             dayWin.Content = $"DAY: {Day}";
 
             // Like I said, this method simply prints the char[] with spaces in between each character.
-            DockListPrint();
+            //DockListPrint();
+            InitDocksWin();
 
             // Now we print the information about the North bay only.
             foreach (Boat b in port.boats
@@ -470,6 +572,8 @@ namespace PortSimulation
 
         private void ClickNext(object sender, RoutedEventArgs e)
         {
+            InitDocksWin();
+
             Day++;
 
             nextButton.Content = "Go to day " + (Day + 1);
@@ -556,6 +660,7 @@ namespace PortSimulation
 
             ClearLists();
             ClearPort();
+            InitDocksWin();
         }
     }
 }
