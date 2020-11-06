@@ -390,7 +390,7 @@ namespace PortSimulation
         }
 
         /*
-         * Before checking in a boat, we must check out those that are ready to go, 
+         * Before checking in a boat, we must check out those that are ready to go,
          * and try to fill those spaces (like missing teeth) left.
          */
         private void CheckOutBoats()
@@ -505,7 +505,7 @@ namespace PortSimulation
         // The light blue quadrant.
         private void PrintResume()
         {
-            // Let's forget about yesterday
+            // Let's forget about yesterday. Slate clean!
             resumeWin.Items.Clear();
 
             int amountRow = (port.boats.Where(b => b.Type == TypeBoat.Rowboat)).Count();
