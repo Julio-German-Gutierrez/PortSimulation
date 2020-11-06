@@ -34,7 +34,7 @@
                 </Grid.RowDefinitions>
 
                 
-                <Grid x:Name="northGrid" Grid.Column="1" Grid.Row="0" Margin="5">
+                <Grid x:Name="northGrid" Grid.Column="1" Grid.Row="0" Margin="5,0,5,0" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
@@ -101,8 +101,40 @@
                     <Border Grid.Column="29" Background="Aqua"/>
                     <Border Grid.Column="30" Background="Aqua"/>
                     <Border Grid.Column="31" Background="Aqua"/>
+                    <Label Content="A" Grid.Column="0" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="1" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="2" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="3" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="4" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="5" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="6" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="7" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="8" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="9" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="10" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="11" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="12" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="13" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="14" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="15" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="16" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="17" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="18" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="19" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="20" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="21" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="22" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="23" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="24" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="25" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="26" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="27" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="28" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="29" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="30" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="31" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Grid>
-                <Grid x:Name="southGrid" Grid.Column="1" Grid.Row="1" Margin="5">
+                <Grid x:Name="southGrid" Grid.Column="1" Grid.Row="1" Margin="5,0,5,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
@@ -169,6 +201,38 @@
                     <Border Grid.Column="29" Background="Aqua"/>
                     <Border Grid.Column="30" Background="Aqua"/>
                     <Border Grid.Column="31" Background="Aqua"/>
+                    <Label Content="A" Grid.Column="0" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="1" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="2" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="3" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="4" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="5" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="6" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="7" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="8" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="9" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="10" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="11" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="12" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="13" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="14" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="15" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="16" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="17" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="18" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="19" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="20" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="21" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="22" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="23" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="24" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="25" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="26" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="27" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="28" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="29" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="30" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="A" Grid.Column="31" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Grid>
 
                 

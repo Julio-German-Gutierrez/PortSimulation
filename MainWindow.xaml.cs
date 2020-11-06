@@ -39,15 +39,15 @@ namespace PortSimulation
 
         private void InitDocksWin()
         {
-            //for (int i = 0; i < northGrid.Children.Count; i++)
-            //{
-            //    ((Border)northGrid.Children[i]).Background = Brushes.Green;
-            //    ((Border)southGrid.Children[i]).Background = Brushes.Green;
-            //}
-
-
             for (int i = 0; i < port.docksNorth.Length; i++)
             {
+                // "index = i + 32" because northGrid has 64 children (32 borders and 32 letters)
+                Label label = (Label)northGrid.Children[i + 32];
+
+                if (port.docksNorth[i] != 'A') label.Content = port.docksNorth[i];
+                else label.Content = "";
+                
+                ((Label)northGrid.Children[i + 32]).Foreground = Brushes.White;
                 switch (port.docksNorth[i])
                 {
                     case 'A':
@@ -57,38 +57,45 @@ namespace PortSimulation
                         }
                     case 'R':
                         {
-                            ((Border)northGrid.Children[i]).Background = Brushes.Brown;
+                            ((Border)northGrid.Children[i]).Background = Brushes.DarkOliveGreen;
                             break;
                         }
                     case 'D':
                         {
-                            ((Border)northGrid.Children[i]).Background = Brushes.Orange;
+                            ((Border)northGrid.Children[i]).Background = Brushes.Olive;
                             break;
                         }
                     case 'M':
                         {
-                            ((Border)northGrid.Children[i]).Background = Brushes.Red;
+                            ((Border)northGrid.Children[i]).Background = Brushes.MediumVioletRed;
                             break;
                         }
                     case 'S':
                         {
-                            ((Border)northGrid.Children[i]).Background = Brushes.White;
+                            ((Border)northGrid.Children[i]).Background = Brushes.DarkCyan;
                             break;
                         }
                     case 'C':
                         {
-                            ((Border)northGrid.Children[i]).Background = Brushes.Blue;
+                            ((Border)northGrid.Children[i]).Background = Brushes.RoyalBlue;
                             break;
                         }
                     case 'K':
                         {
-                            ((Border)northGrid.Children[i]).Background = Brushes.Yellow;
+                            ((Border)northGrid.Children[i]).Background = Brushes.Goldenrod;
                             break;
                         }
                     default:
                         break;
                 }
 
+                // "index = i + 32" because northGrid has 64 children (32 borders and 32 letters)
+                label = (Label)southGrid.Children[i + 32];
+
+                if ( port.docksSouth[i] != 'A' ) label.Content = port.docksSouth[i];
+                else label.Content = "";
+
+                ((Label)southGrid.Children[i + 32]).Foreground = Brushes.White;
                 switch (port.docksSouth[i])
                 {
                     case 'A':
@@ -98,32 +105,32 @@ namespace PortSimulation
                         }
                     case 'R':
                         {
-                            ((Border)southGrid.Children[i]).Background = Brushes.Brown;
+                            ((Border)southGrid.Children[i]).Background = Brushes.DarkOliveGreen;
                             break;
                         }
                     case 'D':
                         {
-                            ((Border)southGrid.Children[i]).Background = Brushes.Orange;
+                            ((Border)southGrid.Children[i]).Background = Brushes.Olive;
                             break;
                         }
                     case 'M':
                         {
-                            ((Border)southGrid.Children[i]).Background = Brushes.Red;
+                            ((Border)southGrid.Children[i]).Background = Brushes.MediumVioletRed;
                             break;
                         }
                     case 'S':
                         {
-                            ((Border)southGrid.Children[i]).Background = Brushes.White;
+                            ((Border)southGrid.Children[i]).Background = Brushes.DarkCyan;
                             break;
                         }
                     case 'C':
                         {
-                            ((Border)southGrid.Children[i]).Background = Brushes.Blue;
+                            ((Border)southGrid.Children[i]).Background = Brushes.RoyalBlue;
                             break;
                         }
                     case 'K':
                         {
-                            ((Border)southGrid.Children[i]).Background = Brushes.Yellow;
+                            ((Border)southGrid.Children[i]).Background = Brushes.Goldenrod;
                             break;
                         }
                     default:
