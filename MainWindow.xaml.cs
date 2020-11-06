@@ -520,7 +520,6 @@ namespace PortSimulation
             
             int availablePlacesNorth = 0;
             int availablePlacesSouth = 0;
-            int GERMAN = 43;
             foreach (char c in port.docksNorth) if (c == 'A') availablePlacesNorth++;
             foreach (char c in port.docksSouth) if (c == 'A') availablePlacesSouth++;
 
