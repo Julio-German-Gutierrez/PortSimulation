@@ -268,8 +268,8 @@
                     <RowDefinition Height="24" />
                     <RowDefinition Height="10*" />
                 </Grid.RowDefinitions>
-                <Border Grid.Row="0" Background="#FF2E3745" />
-                <Border Grid.Row="1" Background="#FF2E3745" />
+                <Border Grid.Row="0" Background="#FF452E2E" />
+                <Border Grid.Row="1" Background="#FF452E2E" />
                 <Border Grid.Row="2" Background="#FF536176" />
                 <Border Grid.Row="3" Background="#FF536176" />
                 <Label Content="Incoming boats" Grid.Row="0" FontFamily="Courier New" FontWeight="Bold" Foreground="#FFFF8139" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
