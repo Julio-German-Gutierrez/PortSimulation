@@ -44,8 +44,8 @@ namespace PortSimulation
                 // "index = i + 32" because northGrid has 64 children (32 borders and 32 letters)
                 Label label = (Label)northGrid.Children[i + 32];
 
-                if (port.docksNorth[i] != 'A') label.Content = port.docksNorth[i];
-                else label.Content = "";
+                if (port.docksNorth[i] != 'A') label.Content = port.docksNorth[i]; //if not available -> print code
+                else label.Content = "";                                           //otherwise let it be blank! (Available)
                 
                 ((Label)northGrid.Children[i + 32]).Foreground = Brushes.White;
                 switch (port.docksNorth[i])
@@ -519,7 +519,7 @@ namespace PortSimulation
                                                                             //or FALSE otherwise.
 
                 if (accepted) port.boats.Add(b); // Welcome to the port
-                else rejectedBoats.Add($"Day Rejected:{Day,4}BoatID:{b.ID}  "); // Sorry fellow!
+                else rejectedBoats.Add($"Day Rejected:{Day,-4}BoatID:{b.ID}  "); // Sorry fellow!
             }
         }
 
@@ -668,6 +668,59 @@ namespace PortSimulation
             ClearLists();
             ClearPort();
             InitDocksWin();
+        }
+
+        private void DoubleClickRejected(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            ListView lista = (ListView)sender;
+            if (lista.SelectedItem == lista.Items[9])
+            {
+                string rejected = "";
+                foreach (string s in rejectedBoats)
+                {
+                    rejected += s + "\n";
+                }
+                MessageBox.Show(rejected);
+            }
+        }
+
+        private void DoubleClickIncoming(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            ListView lista = (ListView)sender;
+            string searchID = (string)lista.SelectedItem;
+
+            string ID = searchID.Substring(searchID.IndexOf("ID: ") + 4, 5);
+
+            Boat b = incomingBoats.First(b => b.ID == ID);
+
+            WinInfo wi = new WinInfo();
+            wi.listInfo.Items.Add($"{"Type:",11} {b.Type}");
+            wi.listInfo.Items.Add($"{"ID:", 11} {b.ID}");
+            wi.listInfo.Items.Add($"{"Weight:",11} {b.Weight} Kg");
+            if(b.AcceptedInPort) wi.listInfo.Items.Add($"{"Port:",11} {b.ParkingPort}");
+            if(b.AcceptedInPort) wi.listInfo.Items.Add($"{"Place:",11} {b.ParkingPlace + 1}");
+            wi.listInfo.Items.Add($"{"Max Speed:",11} {b.MaxSpeedNots * 1.852} Km/h");
+            wi.listInfo.Items.Add("");
+            if(!b.AcceptedInPort) wi.listInfo.Items.Add($"{"Response:",11} REJECTED");
+
+            wi.Show();
+        }
+
+        private void ClickIncoming(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            ListView lista = (ListView)sender;
+            string searchID = (string)lista.SelectedItem;
+
+            string ID = searchID.Substring(searchID.IndexOf("ID: ") + 4, 5);
+
+            Boat b = incomingBoats.First(b => b.ID == ID);
+
+            int index = 0;
+            for (int i = 0; i < lista.Items.Count; i++)
+            {
+                if (((string)lista.Items[i]).Contains(ID)) index = i;
+            }
+            listNorthWin.SelectedItem = lista.Items[index];
         }
     }
 }

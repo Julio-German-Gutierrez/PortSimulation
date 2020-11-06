@@ -274,8 +274,8 @@
                 <Border Grid.Row="3" Background="#FF536176" />
                 <Label Content="Incoming boats" Grid.Row="0" FontFamily="Courier New" FontWeight="Bold" Foreground="#FFFF8139" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <Label Content="Resume" Grid.Row="2" FontFamily="Courier New" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF03FFDF" />
-                <ListView x:Name="incomingWin" Grid.Row="1" Margin="5,5,5,5" FontFamily="Courier New" BorderThickness="0,0,0,0" Foreground="#FFFF8139" Background="Transparent" FontWeight="Bold" />
-                <ListView x:Name="resumeWin" Grid.Row="3" Margin="5,5,5,5" FontFamily="Courier New" BorderThickness="0,0,0,0" Foreground="#FF03FFDF" Background="Transparent" FontWeight="Bold" />
+                <ListView x:Name="incomingWin" Grid.Row="1" Margin="5,5,5,5" FontFamily="Courier New" BorderThickness="0,0,0,0" Foreground="#FFFF8139" Background="Transparent" FontWeight="Bold" MouseDoubleClick="DoubleClickIncoming" MouseLeftButtonDown="ClickIncoming" />
+                <ListView x:Name="resumeWin" Grid.Row="3" Margin="5,5,5,5" FontFamily="Courier New" BorderThickness="0,0,0,0" Foreground="#FF03FFDF" Background="Transparent" FontWeight="Bold" MouseDoubleClick="DoubleClickRejected" />
             </Grid>
         </Grid>
         

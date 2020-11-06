@@ -1,0 +1,12 @@
+﻿<Window x:Class="PortSimulation.WinInfo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PortSimulation"
+        mc:Ignorable="d"
+        Title="WinInfo" Height="250" Width="300" x:Name="ventanita" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid Background="#FF40292E">
+        <ListView x:Name="listInfo" BorderThickness="0" Margin="20" Background="Transparent" FontSize="12" FontFamily="Courier New" Foreground="#FFFF8139" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+    </Grid>
+</Window>
